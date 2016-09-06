@@ -503,7 +503,7 @@ Tiddler
 p165
 (dp166
 g21
-V[[Start]]\u000a[[Print JSON]]
+V<<print "[" + "[Start]]">>\u000a[[Print JSON]]
 p167
 sg23
 VStoryMenu
@@ -513,9 +513,9 @@ g26
 ((I2016
 I9
 I5
-I22
-I47
-I8
+I23
+I24
+I0
 I0
 I249
 I1
@@ -707,7 +707,7 @@ Tiddler
 p227
 (dp228
 g21
-VOriginally by Leon Arnott, this and other animations are available here: [[http://www.glorioustrainwrecks.com/files/TwineMacro-CyclinglinkCSS.html]].\u000a\u000aNote that "cycling" in the CSS should be changed to "trace".
+VOriginally by Leon Arnott, this and other animations are available here: [[http://www.glorioustrainwrecks.com/files/TwineMacro-CyclinglinkCSS.html]].\u000a\u000aNote that "cycling" in the CSS should be changed to "trace" to affect tracelinks. See the example above.
 p229
 sg23
 Vtracelink/cyclinglink animations
@@ -717,9 +717,9 @@ g26
 ((I2016
 I9
 I5
-I22
-I54
-I54
+I23
+I25
+I8
 I0
 I249
 I1

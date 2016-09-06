@@ -8,7 +8,20 @@ twinecery has two primary uses:
 If you run into any problems with twinecery, or this guide, or if you just want to share something neat you did with it, feel free to ping me @[mrfb]!
 
 ##### Table of Contents
-bloop
+1. [Getting Started](#1-getting-started)
+2. [Authoring a Grammar](#2-authoring-a-grammar)
+    1. [The Anatomy of a Tracery Grammar](#21-the-anatomy-of-a-tracery-grammar)
+    2. [The Anatomy of a Twine Passage](#22-the-anatomy-of-a-twine-passage)
+    3. [How twinecery Encodes Tracery Grammars](#23-how-twinecery-encodes-tracery-grammars)
+    4. [Twine Links as Replacement Rules](#24-twine-links-as-replacement-rules)
+3. [Using Grammars in Twine](#3-using-grammars-in-twine)
+    1. [With a Macro](#31-with-a-macro)
+    2. [With a Function](#32-with-a-function)
+    3. [With a Link to Another Passage](#33-with-a-link-to-another-passage)
+    4. [With an Internally-Acting Link](#34-with-an-internally-acting-link)
+4. [Importing and Exporting Grammars](#3-importing-and-exporting-grammars)
+    1. [Importing JSON](#41-importing-json)
+    2. [Exporting JSON]($42-exporting-json)
 
 ### 1. GETTING STARTED
 First, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
@@ -57,7 +70,7 @@ text
 I went to the grocery store today and got some apples. Would you like a [[snack|killed by a poisoned apple]]?
 ```
 
-##### 2.3. How Twinecery Encodes Tracery Grammars
+##### 2.3. How twinecery Encodes Tracery Grammars
 In twinecery, a passage gets slurped up into a Tracery grammar when you add `grammar` to that passage's list of tags in Twine. The title of that passage becomes the name of the symbol, and each separate line of the text of that passage becomes the set of rules associated with that symbol. Like so:
 ```
 :: adjective [grammar]
@@ -94,7 +107,7 @@ dog
 porpoise
 ```
 
-```SCREENSHOT HERE```
+![twinecery example screenshot](http://mrfb.github.com/mrfb.github.io/twinecery-example.png)
 
 Use this feature to organize your symbols/passages in the Twine interface, and understand where links are going and how your grammar is structured.
 
@@ -106,7 +119,7 @@ Use this feature to organize your symbols/passages in the Twine interface, and u
 
 ### 3. USING GRAMMARS IN TWINE
 
-##### 3.1. The <<trace>> Macro
+##### 3.1. With A Macro
 If you want to include text from your grammar in a Twine passage, you'll want to use the ``<<trace>>`` macro. (Well, technically it's a [pseudomacro].)
 
 Pass a single argument in quotes to expand a specific symbol, or call it without any arguments to default to the `origin` symbol.
@@ -123,7 +136,7 @@ There's a worn-out couch and a small [[television]] in here. In the window outsi
 <<if $television eq "on">>The television lights up the room. You watch for a second, and see <<trace "tv">><<endif>>
 ```
 
-##### 3.2. The trace() Function
+##### 3.2. With a Function
 If you need a grammar expansion in an expression of some kind, the trace() function is where it's at. You can use it to save expansions to variables, or as part of print statements, or wherever else you might need it. You can also use it in the JavaScript console for testing and development purposes.
 
 Pass it a string as an argument to expand a particular symbol, or call it without any arguments to default to `origin`.
@@ -145,7 +158,7 @@ This offers more flexibility than Tracery's built-in method of saving values, si
 You can't wait for tomorrow's [[dinner]].
 ```
 
-##### 3.3. Linking to a Grammar-Only Passage with [[trace]]
+##### 3.3. With a Link to Another Passage
 You can also use the ``trace`` passage to create a link to a passage in Twine and have the text of that passage be entirely produced by your grammar. You can specify a symbol using a setter link and adjusting the `$symbol` variable, or just link to it normally to default to `origin`.
 ```
 [[trace][$symbol = "some symbol"]]
@@ -165,7 +178,7 @@ It's a pity you never obtained the mythical <<$playerQuest>>.
 You are briefly mourned by several passersby.
 You are mourned for decades by your lover, [[name]].
 ```
-##### 3.4. The <<tracelink>> Macro
+##### 3.4. With an Internally-Acting Link
 `<<tracelink>>` is a modification of Leon Arnott's `<<cyclinglink>>` macro. As with the other methods, if you give it a single string it will expand that symbol, or default to the `origin` symbol if no argument is provided.
 ```
 <<tracelink "an arbitrary symbol">>
