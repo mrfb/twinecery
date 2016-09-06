@@ -25,7 +25,7 @@ If you run into any problems with twinecery, or this guide, or if you just want 
     4. [With an Internally-Acting Link](#3iv-with-an-internally-acting-link)
 4. [Importing and Exporting Grammars](#4-importing-and-exporting-grammars)
     1. [Importing JSON](#4i-importing-json)
-    2. [Exporting JSON]($4ii-exporting-json)
+    2. [Exporting JSON](#4ii-exporting-json)
 
 ### 1. GETTING STARTED
 First, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
