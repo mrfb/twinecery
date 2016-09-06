@@ -30,7 +30,7 @@ First, create a new story in Twine or open an existing .tws file. In the applica
 https://cdn.rawgit.com/mrfb/twinecery/master/twinecery.txt
 ```
 
-*n.b.* — This will goof things up if you attempt to build your story without an internet connection. To get around this, download twinecery.tws or twinecery.txt from this repository and include it locally. If you put that file in the same folder as your .tws file, you can change the above line to `./twinecery.txt`.
+*n.b.* — This will goof things up if you attempt to build your story without an internet connection. To get around this, download twinecery.txt from this repository and include it locally. If you put that file in the same folder as your .tws file, you can change the above line to `./twinecery.txt`.
 
 Second, go to **Story > Special Passages > StoryInit** and add the following:
 ```
@@ -112,11 +112,14 @@ porpoise
 
 Use this feature to organize your symbols/passages in the Twine interface, and understand where links are going and how your grammar is structured.
 
-**2.iv.a. Mixing Twine Links and Tracery Replacements** — Replacements only happen on passages tagged with `grammar`, so a link to a standard Twine passage that might be in your story like `[[killed by a poisoned apple]]` is unchanged. In standard Tracery applications, this has no meaning, but if you're writing a grammar to be used in a Twine game, you can use this to put links into your grammar when they print out.
+###### 2.iv.a. Mixing Twine Links and Tracery Symbols
+Replacements only happen on passages tagged with `grammar`, so a link to a standard Twine passage that might be in your story like `[[killed by a poisoned apple]]` is unchanged. In standard Tracery applications, this has no meaning, but if you're writing a grammar to be used in a Twine game, you can use this to put links into your grammar when they print out.
 
-**2.iv.b. Modifiers** — You can use Twine's [setter links] to add modifiers to replacements, so `[[adjective][capitalize]]` becomes `#adjective.capitalize#`.
+###### 2.iv.b. Modifiers
+You can use Twine's [setter links] to add modifiers to replacements, so `[[adjective][capitalize]]` becomes `#adjective.capitalize#`.
 
-**2.iv.c. Hiding a Link** — If you want to call a symbol in your grammar without creating a link to it in Twine (e.g., for a symbol that gets used so often that it would convolute the graph structure if you included it.) you can still just use the standard Tracery syntax. It will still be replaced as per normal, but won't display the connection.
+###### 2.iv.c. Hiding a Link
+If you want to call a symbol in your grammar without creating a link to it in Twine (e.g., for a symbol that gets used so often that it would convolute the graph structure if you included it.) you can still just use the standard Tracery syntax. It will still be replaced as per normal, but won't display the connection.
 
 ### 3. USING GRAMMARS IN TWINE
 
