@@ -8,7 +8,7 @@ twinecery has two primary uses.
 
 If you run into any problems with twinecery, or this guide, or if you just want to share something neat you did with it, feel free to ping me @[mrfb]!
 
-##### Table of Contents
+## Table of Contents
 1. [Getting Started](#1-getting-started)
 2. [Authoring a Grammar](#2-authoring-a-grammar)
     1. [The Anatomy of a Tracery Grammar](#2i-the-anatomy-of-a-tracery-grammar)
@@ -27,7 +27,7 @@ If you run into any problems with twinecery, or this guide, or if you just want 
     1. [Importing JSON](#4i-importing-json)
     2. [Exporting JSON](#4ii-exporting-json)
 
-### 1. GETTING STARTED
+## 1. GETTING STARTED
 First, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
 ```
 https://cdn.rawgit.com/mrfb/twinecery/master/twinecery.txt
@@ -41,8 +41,8 @@ Second, go to **Story > Special Passages > StoryInit** and add the following:
 ```
 
 Third, go to **Story > Special Passages > StorySettings** and enable jQuery.
-### 2. AUTHORING A GRAMMAR
-##### 2.i. The Anatomy of a Tracery Grammar
+## 2. AUTHORING A GRAMMAR
+### 2.i. The Anatomy of a Tracery Grammar
 Normally when authoring a grammar to be used in a Tracery application, you write in JSON. A grammar might look like this:
 ```
 {
@@ -64,7 +64,7 @@ I saw a blue porpoise today.
 
 The whole thing constitutes a **grammar**. Each item in the grammar (`origin`, `color`, `adjective`, &c.) is a **symbol**. Each item in a symbol (`red`, `porpoise`, `I saw a #color# #animal# today.`, &c.) is a **rule**.
 
-##### 2.ii. The Anatomy of a Twine Passage
+### 2.ii. The Anatomy of a Twine Passage
 Twine passages have three parts: a **title**, a list of **tags**, and **text**. This guide assumes that you'll be using the graphical interface of the Twine application when you're authoring, but for my own convenience I'll be using the plaintext Twee notation to represent passages, which looks like this:
 ```
 :: title [tag1, tag2, ..., tagN]
@@ -74,7 +74,7 @@ text
 I went to the grocery store today and got some apples. Would you like a [[snack|killed by a poisoned apple]]?
 ```
 
-##### 2.iii. How twinecery Encodes Tracery Grammars
+### 2.iii. How twinecery Encodes Tracery Grammars
 In twinecery, a passage gets slurped up into a Tracery grammar when you add `grammar` to that passage's list of tags in Twine. The title of that passage becomes the name of the symbol, and each separate line of the text of that passage becomes the set of rules associated with that symbol. Like so:
 ```
 :: adjective [grammar]
@@ -83,7 +83,7 @@ bright
 pretty
 ```
 
-##### 2.iv. Twine Links as Replacement Rules
+### 2.iv. Twine Links as Replacement Rules
 In twinecery, when you link to a Twine passage tagged with `grammar`, twinecery will replace that link syntax with Tracery's replacement syntax. So `[[adjective]]` becomes `#adjective#` in the final grammar.
 
 Our example grammar from earlier would look like this:
@@ -115,18 +115,18 @@ porpoise
 
 Use this feature to organize your symbols/passages in the Twine interface, and understand where links are going and how your grammar is structured.
 
-###### 2.iv.a. Mixing Twine Links and Tracery Symbols
+#### 2.iv.a. Mixing Twine Links and Tracery Symbols
 Replacements only happen on passages tagged with `grammar`, so a link to a standard Twine passage that might be in your story like `[[killed by a poisoned apple]]` is unchanged. In standard Tracery applications, this has no meaning, but if you're writing a grammar to be used in a Twine game, you can use this to put links into your grammar when they print out.
 
-###### 2.iv.b. Modifiers
+#### 2.iv.b. Modifiers
 You can use Twine's [setter links] to add modifiers to replacements, so `[[adjective][capitalize]]` becomes `#adjective.capitalize#`.
 
-###### 2.iv.c. Hiding a Link
+#### 2.iv.c. Hiding a Link
 If you want to call a symbol in your grammar without creating a link to it in Twine (e.g., for a symbol that gets used so often that it would convolute the graph structure if you included it.) you can still just use the standard Tracery syntax. It will still be replaced as per normal, but won't display the connection.
 
-### 3. USING GRAMMARS IN TWINE
+## 3. USING GRAMMARS IN TWINE
 
-##### 3.i. With A Macro
+### 3.i. With A Macro
 If you want to include text from your grammar in a Twine passage, you'll want to use the ``<<trace>>`` macro. (Well, technically it's a [pseudomacro].)
 
 Pass a single argument in quotes to expand a specific symbol, or call it without any arguments to default to the `origin` symbol.
@@ -143,7 +143,7 @@ There's a worn-out couch and a small [[television]] in here. In the window outsi
 <<if $television eq "on">>The television lights up the room. You watch for a second, and see <<trace "tv">><<endif>>
 ```
 
-##### 3.ii. With a Function
+### 3.ii. With a Function
 If you need a grammar expansion in an expression of some kind, the trace() function is where it's at. You can use it to save expansions to variables, or as part of print statements, or wherever else you might need it. You can also use it in the JavaScript console for testing and development purposes.
 
 Pass it a string as an argument to expand a particular symbol, or call it without any arguments to default to `origin`.
@@ -165,7 +165,7 @@ This offers more flexibility than Tracery's built-in method of saving values, si
 You can't wait for tomorrow's [[dinner]].
 ```
 
-##### 3.iii. With a Link to Another Passage
+### 3.iii. With a Link to Another Passage
 You can also use the ``trace`` passage to create a link to a passage in Twine and have the text of that passage be entirely produced by your grammar. You can specify a symbol using a setter link and adjusting the `$symbol` variable, or just link to it normally to default to `origin`.
 ```
 [[trace][$symbol = "some symbol"]]
@@ -185,7 +185,7 @@ It's a pity you never obtained the mythical <<$playerQuest>>.
 You are briefly mourned by several passersby.
 You are mourned for decades by your lover, [[name]].
 ```
-##### 3.iv. With an Internally-Acting Link
+### 3.iv. With an Internally-Acting Link
 `<<tracelink>>` is a modification of Leon Arnott's `<<cyclinglink>>` macro. As with the other methods, if you give it a single string it will expand that symbol, or default to the `origin` symbol if no argument is provided.
 ```
 <<tracelink "an arbitrary symbol">>
@@ -209,8 +209,8 @@ You have a feeling today is going to be a [[good day|pop quiz in first period]].
 
 When the user clicks on this link, it's kind of like "swiping left" to get a new result and seeing if they're happy with that one.
 
-### 4. IMPORTING AND EXPORTING GRAMMARS
-##### 4.i. Importing JSON
+## 4. IMPORTING AND EXPORTING GRAMMARS
+### 4.i. Importing JSON
 If you include a JSON file in a passage and tag that passage with `JSON`, it will be appended to the grammar that twinecery builds. If there are any name duplications between an included JSON file and the twinecery grammar, the symbol from the included JSON file will be used.
 
 If you want to bring that JSON into Twine in order to edit it more, you can use the following macro in a passage:
@@ -220,7 +220,7 @@ If you want to bring that JSON into Twine in order to edit it more, you can use 
 
 ...and then you can save that to a plaintext file and import it into your .tws file via **File > Import > Twee Source Code** for further editing.
 
-##### 4.ii. Exporting JSON
+### 4.ii. Exporting JSON
 If the grammar you've authored is destined for a non-Twine application (e.g.: a Twitter bot made with [Cheap Bots Done Quick]), you can print out the JSON using the following macro in a passage:
 ```
 <<print tale.story.toHTML()>>
