@@ -2,7 +2,8 @@
 twinecery combines the grammar-expansion library [Tracery] with the interactive fiction tool [Twine] _(version 1.x)_. If you're not familiar with either one, then you might check out this [Tracery tutorial] and/or this [Twine tutorial] for a crash course.
 
 twinecery has two primary uses.
-1. Make authoring JSON files for a Tracery grammar easier and more organized, regardless of where they'll be used.</li>
+
+1. Make authoring JSON files for a Tracery grammar easier and more organized, regardless of where they'll be used.
 2. Generate text from Tracery grammars within Twine stories.
 
 If you run into any problems with twinecery, or this guide, or if you just want to share something neat you did with it, feel free to ping me @[mrfb]!
