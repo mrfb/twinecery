@@ -1,9 +1,5 @@
 ﻿:: twinecery version [annotation]
-v.2016-08-25
-
-
-:: twinecery readme [annotation]
-twinecery checks for Twine passages tagged "grammar", then splits them based on newlines and turns them into a Tracery object. Run traces with <<trace>> or <<trace "someSymbol">>. You can also link to a trace as a passage by itself with [[trace]] or [[trace][$symbol = "someSymbol"]]. If no symbol is specified, it defaults to "origin".
+v.2016-09-05
 
 
 :: traceryInit
@@ -1516,36 +1512,5 @@ macros.tracelink = {
 		}
 	}
 };
-
-
-:: tracelink shudder effect [stylesheet]
-@keyframes cyc-shudder-in {
-   0%, 100% { transform: translateX(0em); }
-   5%, 25%, 45% { transform: translateX(-1em); }
-   15%, 35%, 55% { transform: translateX(1em); }
-   65% { transform: translateX(-0.6em); }
-   75% { transform: translateX(0.6em); }
-   85% { transform: translateX(-0.2em); }
-   95% { transform: translateX(0.2em); }
-}
-@-webkit-keyframes cyc-shudder-in {
-   0%, 100% { -webkit-transform: translateX(0em); }
-   5%, 25%, 45% { -webkit-transform: translateX(-1em); }
-   15%, 35%, 55% { -webkit-transform: translateX(1em); }
-   65% { -webkit-transform: translateX(-0.6em); }
-   75% { -webkit-transform: translateX(0.6em); }
-   85% { -webkit-transform: translateX(-0.2em); }
-   95% { -webkit-transform: translateX(0.2em); }
-}
-.traceLinkEnabled {
-  color: rgb(255, 0, 255);
-  display: inline-block !important;
-  animation: cyc-shudder-in 0.4s; -webkit-animation: cyc-shudder-in 0.4s;
-}
-.traceLinkInit, .traceLinkInit::before {
-  color: rgb(255, 0, 255);
-  animation-iteration-count: 0 !important;
-  -webkit-animation-iteration-count: 0 !important;
-}
 
 
