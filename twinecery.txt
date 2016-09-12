@@ -1236,6 +1236,83 @@ tracery.test = function() {
 :: Story [script]
 //requires jquery
 
+// input: an array of objects
+//		  a property that each of those object have
+// output: an array of the properties of all the objects
+window.skimObjectArray = function(objectArray, property){
+	console.log("skimObjectArray(", "objectArray", objectArray, "property", property, ")")
+	var values = [];
+
+	for (var i = 0; i < objectArray.length; i++) {
+		var thingToAdd = objectArray[i][property];
+		if(typeof thingToAdd === "object"){
+			// i hope to god this works
+			thingToAdd = objectArray[i][property].join("\n")
+		}
+		values.push( thingToAdd );
+	};
+
+	values = values.join("\n");
+	values = values.split("\n")
+
+	return values;
+}
+
+Story.prototype.appendCorpora = function(){
+	var corporaToAppend = tale.lookup("tags", "corpus");
+	if(!corporaToAppend.length) return;
+
+	for(var i in corporaToAppend){
+		var currentPassage = corporaToAppend[i].title;
+
+		// the rules are the concatenation of each symbol in this passage
+		var rules = [];
+		var lines = tale.passages[currentPassage].text.split("\n")
+		for(var j in lines){
+			var line = lines[j];
+			var location = line.split("#");
+			console.log("location: ", location);
+			var corpusLocation = location[0];
+
+			// fetch me that sweet sweet boy
+			var corpus = $.ajax({
+				dataType: "json",
+				url: corpusLocation,
+				async: false
+			});
+			corpus = corpus.responseJSON;
+
+			// drill down to the array we want
+			for (var i = 1; i < location.length; i++) {
+				console.log("corpus: ", corpus);
+				// if there's a ! at the beginning of a location, skim the objArray for that property
+				if(location[i][0] === "!"){
+					corpus = skimObjectArray(corpus, location[i].substring(1));
+					continue;
+				}
+
+				corpus = corpus[ location[i] ]
+			};
+
+			console.log("corpus: ", corpus);
+			// add this into the symbol-in-progress
+			rules = rules.concat(corpus);
+			console.log("rules: ", rules)
+		}
+
+		// the name of this symbol is the name of the passage
+		var finalJSON = "{ \"" + currentPassage + "\": " + JSON.stringify(rules) + " }";
+
+		// save our dark deeds to the passage
+		tale.passages[currentPassage].text = finalJSON;
+
+		//tag this as JSON so it gets appended in the next step
+		tale.passages[currentPassage].tags.push("JSON")
+	}
+
+	console.log("corpora loaded")
+}
+
 Story.prototype.appendJSON = function() {
 	var JSONtoAppend = tale.lookup("tags", "JSON");
 	if(!JSONtoAppend.length) return;
@@ -1244,7 +1321,7 @@ Story.prototype.appendJSON = function() {
 		var newJSON = JSON.parse(JSONtoAppend[i].text);
 		$.extend(this.data, newJSON);
 	}
-	console.log("appended");
+	console.log("JSON appended");
 }
 
 function Story(){
@@ -1269,7 +1346,7 @@ function Story(){
 		var linkIsGrammar = false;
 		var tags = tale.get(targetLink).tags
 		for(var i = 0; i < tags.length; i++){
-			if(tags[i] == "grammar"){
+			if(tags[i] == "grammar" || tags[i] == "corpus"){
 				linkIsGrammar = true;
 				break;
 			}
@@ -1292,6 +1369,7 @@ function Story(){
 		this.data[newSymbol] = newText.split('\n');
 	}
 
+	this.appendCorpora();
 	this.appendJSON();
 	console.log("Story: ", this);
 }
@@ -1343,11 +1421,18 @@ window.grammar = function(rule){
 
 
 :: trace
-/%
-
+<<silently>>
 Uses the parameter if one was passed. Then, checks for the $symbol variable. If neither is present, uses "origin". Clears $symbol at the end.
 
-%/<<if parameter(0)>><<set $symbol to parameter(0)>><<else>><<if $symbol>><<else>><<set $symbol to "origin">><<endif>><<endif>><<print console.log("trace " + $symbol)>><<print tale.grammar.flatten("#" + $symbol + "#")>><<forget $symbol>>
+<<if parameter(0)>>
+	<<set $symbol to parameter(0)>>
+<<else>><<if $symbol>>
+	No need to do anything.
+<<else>>
+	<<set $symbol to "origin">>
+<<endif>><<endif>>
+
+<<endsilently>><<print console.log("trace " + $symbol)>><<print tale.grammar.flatten("#" + $symbol + "#")>><<forget $symbol>>
 
 
 :: window.trace [script]

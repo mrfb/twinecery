@@ -25,7 +25,8 @@ If you run into any problems with twinecery, or this guide, or if you just want 
     4. [With an Internally-Acting Link](#3iv-with-an-internally-acting-link)
 4. [Importing and Exporting Grammars](#4-importing-and-exporting-grammars)
     1. [Importing JSON](#4i-importing-json)
-    2. [Exporting JSON](#4ii-exporting-json)
+    2. [Importing Corpora](#4ii-importing-corpora)
+    3. [Exporting JSON](#4iii-exporting-json)
 
 ## 1. GETTING STARTED
 First, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
@@ -220,7 +221,30 @@ If you want to bring that JSON into Twine in order to edit it more, you can use 
 
 ...and then you can save that to a plaintext file and import it into your .tws file via **File > Import > Twee Source Code** for further editing.
 
-### 4.ii. Exporting JSON
+### 4.ii. Importing Corpora
+There are lots of cool sources of data out there. For example, [dariusk/corpora]. If you create a passage and tag it `corpus`, twinecery will do some importing for you.
+
+On each line of the corpus passage, include a URL to a data source and path of properties. The goal is to get an array of strings. The URL comes first, and the path is separated by `#` symbols.
+```
+:: dog [corpus]
+https://rawgit.com/dariusk/corpora/master/data/animals/dogs.json#dogs
+
+:: dinosaur [corpus]
+https://rawgit.com/dariusk/corpora/master/data/animals/dinosaurs.json#dinosaurs
+```
+If there are multiple corpuses, they'll be concatenated. The name of the symbol is the name of the passage.
+```
+:: animal [corpus]
+https://rawgit.com/dariusk/corpora/master/data/animals/dogs.json#dogs
+https://rawgit.com/dariusk/corpora/master/data/animals/dinosaurs.json#dinosaurs
+```
+To help with arrays-of-objects, items in the path that are preceded by a `!` will be skimmed for those properties. In the example case below, each item in `crayola.json["colors"]` has a `color` property and a `hex` property. This will make a symbol named `color` consisting of all the values of `color` in crayola.json.
+```
+:: color [corpus]
+https://rawgit.com/dariusk/corpora/master/data/colors/crayola.json#colors#!color
+```
+...these two formats won't work for gnarlier corpuses, but they're hopefully helpful enough to work for rapid prototyping.
+### 4.iii. Exporting JSON
 If the grammar you've authored is destined for a non-Twine application (e.g.: a Twitter bot made with [Cheap Bots Done Quick]), you can print out the JSON using the following macro in a passage:
 ```
 <<print tale.story.toHTML()>>
@@ -237,3 +261,4 @@ Then, just copy-paste the JSON into wherever it needs to go.
    [Cheap Bots Done Quick]: <http://cheapbotsdonequick.com>
    [pseudomacro]: <https://twinery.org/wiki/macro#pseudo-macros>
    [mrfb]: <http://twitter.com/mrfb>
+   [dariusk/corpora]: <https://github.com/dariusk/corpora>
