@@ -1,5 +1,7 @@
 # TWINECERY
-twinecery combines the grammar-expansion library [Tracery] with the interactive fiction tool [Twine] _(version 1.x)_. If you're not familiar with either one, then you might check out this [Tracery tutorial] and/or this [Twine tutorial] for a crash course.
+twinecery combines the grammar-expansion library [Tracery] with the interactive fiction tool [Twine] _(specifically SugarCane in Twine 1.x)_. If you're not familiar with either of these, then you might check out this [Tracery tutorial] and/or this [Twine tutorial] for a crash course.
+
+If you're looking to combine Tracery and Twine 2.x, check out [Trice].
 
 twinecery has two primary uses.
 
@@ -9,7 +11,7 @@ twinecery has two primary uses.
 If you run into any problems with twinecery, or this guide, or if you just want to share something neat you did with it, feel free to ping me @[mrfb]!
 
 ## Table of Contents
-1. [Getting Started](#1-getting-started)
+1. [Three Things Before You Start](#1-three-things-before-you-start)
 2. [Authoring a Grammar](#2-authoring-a-grammar)
     1. [The Anatomy of a Tracery Grammar](#2i-the-anatomy-of-a-tracery-grammar)
     2. [The Anatomy of a Twine Passage](#2ii-the-anatomy-of-a-twine-passage)
@@ -28,20 +30,20 @@ If you run into any problems with twinecery, or this guide, or if you just want 
     2. [Importing Corpora](#4ii-importing-corpora)
     3. [Exporting JSON](#4iii-exporting-json)
 
-## 1. GETTING STARTED
-First, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
+## 1. THREE THINGS BEFORE YOU START
+**First**, create a new story in Twine or open an existing .tws file. In the application menu, go to **Story > Special Passages > StoryIncludes**. Add the following to that passage:
 ```
 https://cdn.rawgit.com/mrfb/twinecery/master/twinecery.txt
 ```
 
 *n.b.* — This will goof things up if you attempt to build your story without an internet connection. To get around this, download twinecery.txt from this repository and include it locally. If you put that file in the same folder as your .tws file, you can change the above line to `./twinecery.txt`.
 
-Second, go to **Story > Special Passages > StoryInit** and add the following:
+**Second**, go to **Story > Special Passages > StoryInit** and add the following:
 ```
 <<traceryInit>>
 ```
 
-Third, go to **Story > Special Passages > StorySettings** and enable jQuery.
+**Third**, go to **Story > Special Passages > StorySettings** and enable jQuery.
 ## 2. AUTHORING A GRAMMAR
 ### 2.i. The Anatomy of a Tracery Grammar
 Normally when authoring a grammar to be used in a Tracery application, you write in JSON. A grammar might look like this:
@@ -256,6 +258,7 @@ Then, just copy-paste the JSON into wherever it needs to go.
    [Tracery]: <http://tracery.io>
    [Tracery tutorial]: <http://www.crystalcodepalace.com/traceryTut.html>
    [Twine]: <http://twinery.org>
+   [Trice]: <https://github.com/incobalt/Trice>
    [Twine tutorial]: <http://www.auntiepixelante.com/twine/>
    [setter links]: <https://twinery.org/wiki/link#setting_variables_with_setter-links>
    [Cheap Bots Done Quick]: <http://cheapbotsdonequick.com>
